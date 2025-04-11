@@ -29,17 +29,25 @@ pip install psycopg2-binary python-dotenv
 ```
 
 ### 🗄 Configuración de la Base de Datos
-1. Crear base de datos:
-```sql
-CREATE DATABASE Simulacion;
-```
 
-2. Ejecutar scripts SQL (desde psql o pgAdmin):
-```bash
-psql -U postgres -d Simulacion -f fase1/ddl.sql
-psql -U postgres -d Simulacion -f fase2/data.sql
-```
+1. **Crear la base de datos en pgAdmin:**
+   - Abre pgAdmin y conéctate al servidor PostgreSQL.
+   - Haz clic derecho en **Databases** > **Create** > **Database**.
+   - Nombre: `Simulacion`
+   - Click en **Save**.
 
+2. **Ejecutar los scripts SQL:**
+   - **Paso 1 (Esquema):**
+     1. Haz clic derecho sobre la base de datos `Simulacion` > **Query Tool**.
+     2. Abre el archivo `fase1/ddl.sql` desde el menú **File > Open**.
+     3. Selecciona todo el texto (Ctrl+A).
+     4. Ejecuta el script (F5 o botón ▶).
+   
+   - **Paso 2 (Datos iniciales):**
+     1. Repite el proceso anterior con el archivo `fase2/data.sql`.
+     2. Verifica que no haya errores en la pestaña **Messages**.
+    
+     
 ### 🔧 Configurar Credenciales
 En `fase3/simulacion.py`, modificar líneas 9-12:
 ```python
