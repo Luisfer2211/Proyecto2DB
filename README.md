@@ -12,6 +12,7 @@
 Proyecto2DB/
 ├── fase1/
 │   └── ddl.sql          # Scripts de creación de tablas
+│   └── ERD.png          # Diagrama Entidad Relación
 ├── fase2/
 │   └── data.sql         # Datos de prueba
 ├── fase3/
