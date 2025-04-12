@@ -42,7 +42,6 @@ pip install psycopg2-binary python-dotenv
      2. Abre el archivo `fase1/ddl.sql` desde el menú **File > Open**.
      3. Selecciona todo el texto (Ctrl+A).
      4. Ejecuta el script (F5 o botón ▶).
-   ```
 
 ### 🖥️ Uso del Menú Interactivo
 El programa ofrece un menú intuitivo con dos modos de operación:
