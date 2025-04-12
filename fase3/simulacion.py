@@ -32,10 +32,10 @@ class SimuladorReservas:
     def obtener_asientos_evento(self):
         conn = psycopg2.connect(**DB_CONFIG)
         cursor = conn.cursor()
-        cursor.execute(  # <-- Aquí faltaba cerrar el paréntesis
+        cursor.execute(
             "SELECT numero_asiento FROM asientos "
             "WHERE id_evento = %s",
-            (EVENTO_META,)  # Paréntesis correctamente cerrado
+            (EVENTO_META,)
         )
         asientos = [row[0] for row in cursor.fetchall()]
         conn.close()
@@ -108,7 +108,6 @@ class SimuladorReservas:
         conn.commit()
         conn.close()
 
-
 def ejecutar_prueba(n_usuarios, nivel):
     simulador = SimuladorReservas(nivel)
     hilos = []
@@ -125,19 +124,95 @@ def ejecutar_prueba(n_usuarios, nivel):
     
     elapsed_time = (time.perf_counter() - start_time) * 1000  # ms
     
-    # Nueva salida formateada
-    print(f"Usuarios Concurrentes: {n_usuarios}, "
+    print(f"\nUsuarios Concurrentes: {n_usuarios}, "
           f"Nivel de Aislamiento: {nivel}, "
           f"Reservas Exitosas: {simulador.exitos}, "
           f"Reservas Fallidas: {simulador.fallos}, "
-          f"Tiempo que tomó ejecutar: {elapsed_time:.1f} ms\n")
+          f"Tiempo: {elapsed_time:.1f} ms")
     
     simulador.reset_asientos()
 
-if __name__ == "__main__":
-    # Encabezado opcional (puedes quitarlo si prefieres)
-    print("Resultados de las pruebas:\n" + "-"*50)
+def mostrar_menu():
+    while True:
+        print("\n" + "="*50)
+        print("MENÚ PRINCIPAL".center(50))
+        print("1. Mostrar resultados predefinidos")
+        print("2. Ejecutar prueba personalizada")
+        print("3. Salir")
+        opcion = input("Seleccione una opción (1-3): ")
+        
+        if opcion in ['1', '2', '3']:
+            return opcion
+        else:
+            print("\n⚠️ Opción inválida. Por favor ingrese 1, 2 o 3.")
+            time.sleep(1)
+
+def seleccionar_nivel():
+    while True:
+        try:
+            print("\nNiveles de aislamiento disponibles:")
+            for i, nivel in enumerate(NIVELES_AISLAMIENTO, 1):
+                print(f"{i}. {nivel}")
+            
+            seleccion = input("Seleccione el nivel (1-3): ")
+            nivel_idx = int(seleccion) - 1
+            
+            if 0 <= nivel_idx < len(NIVELES_AISLAMIENTO):
+                return NIVELES_AISLAMIENTO[nivel_idx]
+            else:
+                print("⚠️ Error: Ingrese un número entre 1 y 3")
+        except ValueError:
+            print("⚠️ Error: Debe ingresar un número entero")
+
+def seleccionar_usuarios():
+    while True:
+        try:
+            usuarios = int(input("Ingrese número de usuarios (1-50): "))
+            if 1 <= usuarios <= 50:
+                return usuarios
+            else:
+                print("⚠️ Error: El número debe estar entre 1 y 50")
+        except ValueError:
+            print("⚠️ Error: Debe ingresar un número entero")
+
+def confirmar_continuar():
+    while True:
+        respuesta = input("\n¿Volver al menú principal? (s/n): ").lower()
+        if respuesta in ['s', 'n']:
+            return respuesta == 's'
+        else:
+            print("⚠️ Por favor ingrese 's' para sí o 'n' para no")
+
+def main():
+    print("\n" + "="*50)
+    print("SIMULADOR DE RESERVAS CONCURRENTES".center(50))
+    print("="*50)
     
-    for nivel in NIVELES_AISLAMIENTO:
-        for usuarios in USUARIOS_SIMULTANEOS:
+    while True:
+        opcion = mostrar_menu()
+        
+        if opcion == '1':
+            print("\n" + "RESULTADOS PREDEFINIDOS".center(50, '-'))
+            for nivel in NIVELES_AISLAMIENTO:
+                for usuarios in USUARIOS_SIMULTANEOS:
+                    ejecutar_prueba(usuarios, nivel)
+            
+            if not confirmar_continuar():
+                break
+                
+        elif opcion == '2':
+            print("\n" + "PRUEBA PERSONALIZADA".center(50, '-'))
+            usuarios = seleccionar_usuarios()
+            nivel = seleccionar_nivel()
+            
             ejecutar_prueba(usuarios, nivel)
+            
+            if not confirmar_continuar():
+                break
+                
+        elif opcion == '3':
+            print("\n¡Hasta luego!")
+            break
+
+if __name__ == "__main__":
+    main()
