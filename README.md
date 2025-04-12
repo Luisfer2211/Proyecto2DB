@@ -132,4 +132,3 @@ DB_CONFIG = {
 ### 📄 Documentación Adicional
 - [Manual de psycopg2](https://www.psycopg.org/docs/usage.html)
 - [Guía oficial PostgreSQL](https://www.postgresql.org/docs/15/tutorial-transactions.html)
-``` 
