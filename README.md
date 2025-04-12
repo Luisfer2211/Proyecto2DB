@@ -20,7 +20,6 @@ Proyecto2DB/
 │   └── simulacion.py    # Programa de simulación con menú interactivo
 ├── fase4/
 │   ├── resultados.jpg   # Gráficos comparativos
-│   └── datos_crudos.csv # Datos numéricos
 └── fase5/
     └── informe.pdf      # Documento de análisis final
 ```
