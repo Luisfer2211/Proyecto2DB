@@ -50,7 +50,7 @@ El programa ofrece un menú intuitivo con dos modos de operación:
 - Ejecuta todas las combinaciones preconfiguradas:
   - 5, 10, 20 y 30 usuarios
   - Los 3 niveles de aislamiento
-- Muestra resultados en formato tabla
+- Muestra resultados en formato lista
 
 #### 2. Modo Personalizado
 Permite especificar:
