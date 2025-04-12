@@ -107,9 +107,8 @@ En `simulacion.py` ajustar:
 DB_CONFIG = {
     "host": "localhost",      # Cambiar si usa servidor remoto
     "database": "Simulacion", # Nombre de la BD
-    "user": "admin",          # Usuario con permisos
-    "password": "secure123",  # Contraseña
-    "port": "5432"           # Puerto personalizado
+    "user": "postgres",       # Usuario con permisos
+    "password": "lol",        # Cambiar ontraseña
 }
 ```
 
